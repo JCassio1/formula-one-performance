@@ -2,15 +2,51 @@ import { useEffect, useState } from 'react'
 import ImageLoadingSkeleton from '../components/UI/ImageLoadingSkeleton'
 import { useData } from '../hooks/http/FetchData'
 import Spinner from 'react-bootstrap/Spinner'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/esm/Col'
+import SelectBox from '../components/UI/SelectBox'
+import UIYearPicker from '../components/UI/UIYearPicker'
+import UIButton from '../components/UI/UIButton'
 
 const Homepage = () => {
+  const [constructorList, setConstructorList] = useState(null)
+  const [carConstructorData, setCarConstructorData] = useState(null)
+
+  const [isImageLoading, setIsImageLoading] = useState(true)
+
+  const [choosenBrand, setChoosenBrand] = useState(null)
+  const [choosenYear, setChoosenYear] = useState(null)
+
   const { data, isLoading, isError, error } = useData(
     'https://ergast.com/api/f1/2023/constructors.json?limit=1000',
     'data',
     true
   )
 
-  const [isImageLoading, setIsImageLoading] = useState(true)
+  const {
+    data: brandData,
+    isLoading: brandIsLoading,
+    isError: brandIsError,
+    refetch
+  } = useData(
+    `http://ergast.com/api/f1/${choosenYear}/constructors/${choosenBrand}/results.json?limit=1000`,
+    'data',
+    false
+  )
+
+  const isDataLoading = isLoading || brandIsLoading
+  const isDataError = isError || brandIsError
+
+  // Fetch data
+  useEffect(() => {
+    if (!data) return
+
+    const fetchData = async () => {
+      setConstructorList(data.MRData.ConstructorTable.Constructors)
+    }
+
+    fetchData()
+  }, [data])
 
   // Image loader
   useEffect(() => {
@@ -20,6 +56,32 @@ const Homepage = () => {
       setIsImageLoading(false)
     }
   }, [])
+
+  const carBrandsSelectLogic = (data) => {
+    const brand = data.name
+    return (
+      <option key={data.constructorId} value={data.constructorId}>
+        {brand}
+      </option>
+    )
+  }
+
+  const handleInputChange = () => {
+    return (event) => {
+      const formEvent = event.target
+      if (formEvent.id === 'formBasicBrand') {
+        setChoosenBrand(formEvent.value)
+      } else if (formEvent.id === 'formBasicYear') {
+        setChoosenYear(formEvent.value)
+      }
+    }
+  }
+
+  const handleBrandDataFetch = () => {
+    if (choosenBrand || choosenYear) {
+      refetch()
+    }
+  }
 
   return (
     <>
@@ -46,6 +108,39 @@ const Homepage = () => {
             style={{ marginRight: '10px' }}
           />
         </p>
+      )}
+
+      {isDataError && (
+        <p>
+          <strong>An error has occured whilst fetching data. Please reload or try again later ☹️</strong>
+        </p>
+      )}
+
+      <Row className='mt-5' style={{ minWidth: '300px' }}>
+        <Col>
+          {!isError && constructorList && (
+            <SelectBox
+              selectTitle='Select a car brand'
+              displaySelectLogic={carBrandsSelectLogic}
+              selectAria='Car brand select'
+              selectData={constructorList}
+              handleOnChange={handleInputChange()}
+            />
+          )}
+        </Col>
+        <Col>{!isError && constructorList && <UIYearPicker handleOnChange={handleInputChange()} />}</Col>
+      </Row>
+
+      {!isError && constructorList && (
+        <div className='mt-3'>
+          <UIButton
+            buttonText='Search'
+            buttonVariant='danger'
+            handleOnClick={handleBrandDataFetch}
+            isLoading={isDataLoading}
+            isDisabled={!choosenBrand || !choosenYear || (choosenYear && choosenYear.length !== 4)}
+          />
+        </div>
       )}
     </>
   )

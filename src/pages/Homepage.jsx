@@ -30,7 +30,7 @@ const Homepage = () => {
     isError: brandIsError,
     refetch
   } = useData(
-    `http://ergast.com/api/f1/${choosenYear}/constructors/${choosenBrand}/results.json?limit=1000`,
+    `https://ergast.com/api/f1/${choosenYear}/constructors/${choosenBrand}/results.json?limit=1000`,
     'data',
     false
   )

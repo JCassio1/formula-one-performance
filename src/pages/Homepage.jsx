@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
-import ImageLoadingSkeleton from '../components/UI/ImageLoadingSkeleton'
 import { useData } from '../hooks/http/FetchData'
-import Spinner from 'react-bootstrap/Spinner'
+import ImageLoadingSkeleton from '../components/UI/ImageLoadingSkeleton'
+import SelectBox from '../components/UI/SelectBox'
+import UIRaceResult from '../components/UI/UIRaceResult'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/esm/Col'
-import SelectBox from '../components/UI/SelectBox'
 import UIYearPicker from '../components/UI/UIYearPicker'
 import UIButton from '../components/UI/UIButton'
+import Spinner from 'react-bootstrap/Spinner'
 
 const Homepage = () => {
   const [constructorList, setConstructorList] = useState(null)
@@ -57,6 +58,11 @@ const Homepage = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (!brandData) return
+    setCarConstructorData(brandData)
+  }, [brandData])
+
   const carBrandsSelectLogic = (data) => {
     const brand = data.name
     return (
@@ -94,7 +100,6 @@ const Homepage = () => {
           alt='Formula one logo'
         />
       )}
-
       <p style={{ marginBottom: '10px' }}>Discover the best circuit for each car brand from the F1 2023</p>
       {isLoading && (
         <p>
@@ -142,6 +147,21 @@ const Homepage = () => {
           />
         </div>
       )}
+
+      <div className='mt-5 '>
+        {carConstructorData && <UIRaceResult constructorData={carConstructorData} />}
+        {!isDataError && (!constructorList || !carConstructorData) && (
+          <p>Select a constructor to display their best circuit</p>
+        )}
+
+        <div className='mt-3'>
+          <img
+            src='https://logos-download.com/wp-content/uploads/2016/03/Rolex_logo.png'
+            style={{ height: '10%', width: '5%' }}
+            alt='Formula one logo'
+          />
+        </div>
+      </div>
     </>
   )
 }

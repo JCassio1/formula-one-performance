@@ -1,6 +1,6 @@
 # formula-one-performance
 
-## ❓❓ Problem statement
+## ❓ Problem statement
 
 For each of the constructors in the 2023 F1 season, which circuit throughout history have they performed best at?
 
@@ -16,7 +16,9 @@ For each of the constructors in the 2023 F1 season, which circuit throughout his
 
 ## Wireframe
 
-<!-- Add excalidraw wireframe here -->
+<p align="center">
+  <img src="https://github.com/JCassio1/formula-one-performance/blob/main/src/assets/planning/F1-project-wireframe.png" />
+</p>
 
 ## 🚀 Tech
 
@@ -61,6 +63,8 @@ The Segmet API call according to user request approach was chosen as it aligns c
 
 While this approach does have the limitation of not allowing users to view data spanning multiple years in a single request, it offers the advantages of speed and efficiency that are vital for a seamless user experience.
 
-<!-- Add excalidraw logic here -->
+<p align="center">
+  <img src="https://github.com/JCassio1/formula-one-performance/blob/main/src/assets/planning/F1-project-diagram.png" />
+</p>
 
 Made with ❤️ by Joselson

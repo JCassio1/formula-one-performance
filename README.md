@@ -4,7 +4,9 @@
 
 For each of the constructors in the 2023 F1 season, which circuit throughout history have they performed best at?
 
-<!-- Add screenshot here -->
+<p align="center">
+  <img src="https://github.com/JCassio1/formula-one-performance/blob/main/src/assets/planning/application_screenshot.png" />
+</p>
 
 ## 🧠 Assumptions
 

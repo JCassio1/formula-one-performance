@@ -45,9 +45,9 @@ For each of the constructors in the 2023 F1 season, which circuit throughout his
 
 | Solutions                                                           |                                                                 Pros |                                                 Cons                                                 |
 | :------------------------------------------------------------------ | -------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| Making multiple API calls to get data for constructor for all years | Fetches all data at once, reducing the need for subsequent requests. | Extremely inefficient, which can significantly impact user experience, especially for large datasets |
+| Making multiple API calls to get data for constructor for all years | Fetches all data at once, reducing the need for subsequent requests. | Extremely inefficient, which can significantly impact user experience, especially for large datasets. |
+| Segmet API call according to user request | Offers extremely fast and responsive data retrieval, minimizes API calls, reduces server load and resource consumption, and allows users to precisely specify the data they need. | Users will not be able to view data spanning multiple years |
 
-Segmet API call according to user request | Offers extremely fast and responsive data retrieval, minimises API calls, reducing server load and resource consumption whilst allowing users to precisely specify the data they need | User will not be able to view data spaning multiple years
 
 Note: At present, one of the above solutions has been selected for implementation. However, it's worth noting that both solutions remain viable options for the future. The chosen approach aligns with current user needs and technical constraints.
 

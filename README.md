@@ -43,11 +43,10 @@ For each of the constructors in the 2023 F1 season, which circuit throughout his
 
 ## 🛣 Possible solutions
 
-| Solutions                                                           |                                                                 Pros |                                                 Cons                                                 |
-| :------------------------------------------------------------------ | -------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| Making multiple API calls to get data for constructor for all years | Fetches all data at once, reducing the need for subsequent requests. | Extremely inefficient, which can significantly impact user experience, especially for large datasets. |
-| Segmet API call according to user request | Offers extremely fast and responsive data retrieval, minimizes API calls, reduces server load and resource consumption, and allows users to precisely specify the data they need. | Users will not be able to view data spanning multiple years |
-
+| Solutions                                                           |                                                                                                                                                                              Pros |                                                 Cons                                                  |
+| :------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
+| Making multiple API calls to get data for constructor for all years |                                                                                                              Fetches all data at once, reducing the need for subsequent requests. | Extremely inefficient, which can significantly impact user experience, especially for large datasets. |
+| Segmet API call according to user request                           | Offers extremely fast and responsive data retrieval, minimizes API calls, reduces server load and resource consumption, and allows users to precisely specify the data they need. |                      Users will not be able to view data spanning multiple years                      |
 
 Note: At present, one of the above solutions has been selected for implementation. However, it's worth noting that both solutions remain viable options for the future. The chosen approach aligns with current user needs and technical constraints.
 
@@ -66,5 +65,9 @@ While this approach does have the limitation of not allowing users to view data 
 <p align="center">
   <img src="https://github.com/JCassio1/formula-one-performance/blob/main/src/assets/planning/F1-project-diagram.png" />
 </p>
+
+## 🧪 Testing
+
+It would ensure reliability, identify and prevent issues, and maintain code quality. While we have not conducted testing within this specific instance, in normal circumstances it would be incorporated into the development workflow.
 
 Made with ❤️ by Joselson

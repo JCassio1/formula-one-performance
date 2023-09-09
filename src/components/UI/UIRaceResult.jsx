@@ -1,5 +1,6 @@
 import UICard from './UICard'
 import { convertLapTimeToSeconds } from '../../Helpers/Helpers'
+import { STYLES } from '../../Helpers/Config'
 
 const UIRaceResult = ({ constructorData }) => {
   if (constructorData == null || (constructorData && constructorData?.MRData?.total == '0')) {
@@ -70,7 +71,7 @@ const UIRaceResult = ({ constructorData }) => {
 
   return (
     <>
-      <div style={{ borderRadius: '11px' }}>
+      <div style={STYLES.cardBorderRadius}>
         <UICard displayText={result} constructorRaceData={constructorBestPerformance} />
       </div>
     </>

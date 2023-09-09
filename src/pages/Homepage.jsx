@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/esm/Col'
 import UIYearPicker from '../components/UI/UIYearPicker'
 import UIButton from '../components/UI/UIButton'
 import Spinner from 'react-bootstrap/Spinner'
-import { BASE_URL } from '../Helpers/Config'
+import { BASE_URL, STYLES } from '../Helpers/Config'
 
 const Homepage = () => {
   const [constructorList, setConstructorList] = useState(null)
@@ -89,21 +89,21 @@ const Homepage = () => {
       ) : (
         <img
           src='https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-0.png'
-          style={{ height: '30%', width: '20%' }}
+          style={STYLES.img}
           alt='Formula one logo'
         />
       )}
-      <p style={{ marginBottom: '10px' }}>Discover the best circuit for each car brand from the F1 2023</p>
+      <p style={STYLES.marginBottom(10)}>Discover the best circuit for each car brand from the F1 2023</p>
       {isLoading && (
         <p>
-          <strong style={{ marginRight: '12px' }}>Loading Data</strong>
+          <strong style={STYLES.marginRight(12)}>Loading Data</strong>
           <Spinner
             as='span'
             animation='grow'
             size='sm'
             role='status'
             aria-hidden='true'
-            style={{ marginRight: '10px' }}
+            style={STYLES.marginRight(10)}
           />
         </p>
       )}
@@ -114,7 +114,7 @@ const Homepage = () => {
         </p>
       )}
 
-      <Row className='mt-5' style={{ minWidth: '300px' }}>
+      <Row className='mt-5' style={STYLES.minWidth(300)}>
         <Col>
           {!isError && constructorList && (
             <SelectBox
@@ -150,7 +150,7 @@ const Homepage = () => {
         <div className='mt-3'>
           <img
             src='https://logos-download.com/wp-content/uploads/2016/03/Rolex_logo.png'
-            style={{ height: '10%', width: '5%' }}
+            style={STYLES.sponsorLogo}
             alt='Formula one logo'
           />
         </div>

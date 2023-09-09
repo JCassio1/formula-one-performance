@@ -7,8 +7,9 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/esm/Col'
 import UIYearPicker from '../components/UI/UIYearPicker'
 import UIButton from '../components/UI/UIButton'
-import Spinner from 'react-bootstrap/Spinner'
 import { BASE_URL, STYLES } from '../Helpers/Config'
+import Loading from '../components/UI/Loading'
+import Error from '../components/UI/Error'
 
 const Homepage = () => {
   const [constructorList, setConstructorList] = useState(null)
@@ -94,24 +95,10 @@ const Homepage = () => {
         />
       )}
       <p style={STYLES.marginBottom(10)}>Discover the best circuit for each car brand from the F1 2023</p>
-      {isLoading && (
-        <p>
-          <strong style={STYLES.marginRight(12)}>Loading Data</strong>
-          <Spinner
-            as='span'
-            animation='grow'
-            size='sm'
-            role='status'
-            aria-hidden='true'
-            style={STYLES.marginRight(10)}
-          />
-        </p>
-      )}
+      {isLoading && <Loading loadingText='Loading' />}
 
-      {isDataError && (
-        <p>
-          <strong>An error has occured whilst fetching data. Please reload or try again later ☹️</strong>
-        </p>
+      {!isDataError && (
+        <Error ErrorMessage='An error has occured whilst fetching data. Please reload or try again later ☹️' />
       )}
 
       <Row className='mt-5' style={STYLES.minWidth(300)}>

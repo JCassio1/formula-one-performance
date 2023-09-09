@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/esm/Col'
 import UIYearPicker from '../components/UI/UIYearPicker'
 import UIButton from '../components/UI/UIButton'
 import Spinner from 'react-bootstrap/Spinner'
+import { BASE_URL } from '../Helpers/Config'
 
 const Homepage = () => {
   const [constructorList, setConstructorList] = useState(null)
@@ -18,22 +19,14 @@ const Homepage = () => {
   const [choosenBrand, setChoosenBrand] = useState(null)
   const [choosenYear, setChoosenYear] = useState(null)
 
-  const { data, isLoading, isError, error } = useData(
-    'https://ergast.com/api/f1/2023/constructors.json?limit=1000',
-    'data',
-    true
-  )
+  const { data, isLoading, isError, error } = useData(`${BASE_URL}2023/constructors.json?limit=1000`, 'data', true)
 
   const {
     data: brandData,
     isLoading: brandIsLoading,
     isError: brandIsError,
     refetch
-  } = useData(
-    `https://ergast.com/api/f1/${choosenYear}/constructors/${choosenBrand}/results.json?limit=1000`,
-    'data',
-    false
-  )
+  } = useData(`${BASE_URL}${choosenYear}/constructors/${choosenBrand}/results.json?limit=1000`, 'data', false)
 
   const isDataLoading = isLoading || brandIsLoading
   const isDataError = isError || brandIsError

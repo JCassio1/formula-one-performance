@@ -1,5 +1,7 @@
 export const BASE_URL = 'https://ergast.com/api/f1/'
 
+export const DATA_FETCH_LIMIT = 1000
+
 export const STYLES = {
   img: { height: '30%', width: '20%' },
   sponsorLogo: { height: '10%', width: '5%' },

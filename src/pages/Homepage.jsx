@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/esm/Col'
 import UIYearPicker from '../components/UI/UIYearPicker'
 import UIButton from '../components/UI/UIButton'
-import { BASE_URL, STYLES } from '../Helpers/Config'
+import { BASE_URL, STYLES, DATA_FETCH_LIMIT } from '../Helpers/Config'
 import Loading from '../components/UI/Loading'
 import Error from '../components/UI/Error'
 
@@ -17,20 +17,24 @@ const Homepage = () => {
   const [choosenYear, setChoosenYear] = useState(null)
   const [carConstructorData, setCarConstructorData] = useState(null)
 
-  const { data, isLoading, isError, status } = useData(`${BASE_URL}2023/constructors.json?limit=1000`, 'data', true)
+  const { data, isLoading, isError } = useData(
+    `${BASE_URL}2023/constructors.json?limit=${DATA_FETCH_LIMIT}`,
+    'data',
+    true
+  )
   const {
     data: constructorData,
     isLoading: constructorLoading,
     isError: constructorLoadingIsError,
     refetch
   } = useData(
-    `${BASE_URL}${choosenYear}/constructors/${choosenConstructor}/results.json?limit=1000`,
+    `${BASE_URL}${choosenYear}/constructors/${choosenConstructor}/results.json?limit=${DATA_FETCH_LIMIT}`,
     'constructor',
     false
   )
 
   const constructorList = data?.MRData?.ConstructorTable?.Constructors
-  const isDataLoading = isLoading || constructorLoading || status === 'loading'
+  const isDataLoading = isLoading || constructorLoading
   const isDataError = isError || constructorLoadingIsError
 
   // Image loader

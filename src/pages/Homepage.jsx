@@ -12,36 +12,26 @@ import Loading from '../components/UI/Loading'
 import Error from '../components/UI/Error'
 
 const Homepage = () => {
-  const [constructorList, setConstructorList] = useState(null)
+  const [isImageLoading, setIsImageLoading] = useState(true)
+  const [choosenConstructor, setchoosenConstructor] = useState(null)
+  const [choosenYear, setChoosenYear] = useState(null)
   const [carConstructorData, setCarConstructorData] = useState(null)
 
-  const [isImageLoading, setIsImageLoading] = useState(true)
-
-  const [choosenBrand, setChoosenBrand] = useState(null)
-  const [choosenYear, setChoosenYear] = useState(null)
-
-  const { data, isLoading, isError, error } = useData(`${BASE_URL}2023/constructors.json?limit=1000`, 'data', true)
-
+  const { data, isLoading, isError, status } = useData(`${BASE_URL}2023/constructors.json?limit=1000`, 'data', true)
   const {
-    data: brandData,
-    isLoading: brandIsLoading,
-    isError: brandIsError,
+    data: constructorData,
+    isLoading: constructorLoading,
+    isError: constructorLoadingIsError,
     refetch
-  } = useData(`${BASE_URL}${choosenYear}/constructors/${choosenBrand}/results.json?limit=1000`, 'data', false)
+  } = useData(
+    `${BASE_URL}${choosenYear}/constructors/${choosenConstructor}/results.json?limit=1000`,
+    'constructor',
+    false
+  )
 
-  const isDataLoading = isLoading || brandIsLoading
-  const isDataError = isError || brandIsError
-
-  // Fetch data
-  useEffect(() => {
-    if (!data) return
-
-    const fetchData = async () => {
-      setConstructorList(data?.MRData?.ConstructorTable?.Constructors)
-    }
-
-    fetchData()
-  }, [data])
+  const constructorList = data?.MRData?.ConstructorTable?.Constructors
+  const isDataLoading = isLoading || constructorLoading || status === 'loading'
+  const isDataError = isError || constructorLoadingIsError
 
   // Image loader
   useEffect(() => {
@@ -53,11 +43,11 @@ const Homepage = () => {
   }, [])
 
   useEffect(() => {
-    if (!brandData) return
-    setCarConstructorData(brandData)
-  }, [brandData])
+    if (!constructorData) return
+    setCarConstructorData(constructorData)
+  }, [constructorData])
 
-  const carBrandsSelectLogic = (data) => {
+  const ConstructorSelectLogic = (data) => {
     const brand = data.name
     return (
       <option key={data.constructorId} value={data.constructorId}>
@@ -70,15 +60,15 @@ const Homepage = () => {
     return (event) => {
       const formEvent = event.target
       if (formEvent.id === 'formBasicBrand') {
-        setChoosenBrand(formEvent.value)
+        setchoosenConstructor(formEvent.value)
       } else if (formEvent.id === 'formBasicYear') {
         setChoosenYear(formEvent.value)
       }
     }
   }
 
-  const handleBrandDataFetch = () => {
-    if (choosenBrand || choosenYear) {
+  const handleConstructorDataFetch = () => {
+    if (choosenConstructor || choosenYear) {
       refetch()
     }
   }
@@ -94,10 +84,10 @@ const Homepage = () => {
           alt='Formula one logo'
         />
       )}
-      <p style={STYLES.marginBottom(10)}>Discover the best circuit for each car brand from the F1 2023</p>
+      <p style={STYLES.marginBottom(10)}>Discover the best circuit for each car constructor from the F1 2023</p>
       {isLoading && <Loading loadingText='Loading' />}
 
-      {!isDataError && (
+      {isDataError && (
         <Error ErrorMessage='An error has occured whilst fetching data. Please reload or try again later ☹️' />
       )}
 
@@ -105,9 +95,9 @@ const Homepage = () => {
         <Col>
           {!isError && constructorList && (
             <SelectBox
-              selectTitle='Select a car brand'
-              displaySelectLogic={carBrandsSelectLogic}
-              selectAria='Car brand select'
+              selectTitle='Select a constructor'
+              displaySelectLogic={ConstructorSelectLogic}
+              selectAria='Car constructor select'
               selectData={constructorList}
               handleOnChange={handleInputChange()}
             />
@@ -121,9 +111,9 @@ const Homepage = () => {
           <UIButton
             buttonText='Search'
             buttonVariant='danger'
-            handleOnClick={handleBrandDataFetch}
+            handleOnClick={handleConstructorDataFetch}
             isLoading={isDataLoading}
-            isDisabled={!choosenBrand || !choosenYear || (choosenYear && choosenYear.length !== 4)}
+            isDisabled={!choosenConstructor || !choosenYear || (choosenYear && choosenYear.length !== 4)}
           />
         </div>
       )}

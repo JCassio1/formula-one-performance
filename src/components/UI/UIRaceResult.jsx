@@ -2,7 +2,7 @@ import UICard from './UICard'
 import { convertLapTimeToSeconds } from '../../Helpers/Helpers'
 
 const UIRaceResult = ({ constructorData }) => {
-  if (constructorData == null || (constructorData && constructorData.MRData.total == '0')) {
+  if (constructorData == null || (constructorData && constructorData?.MRData?.total == '0')) {
     return (
       <p>
         Oops... there's no historical data for your selected constructor. Try picking another constructor or year 😶
@@ -20,34 +20,31 @@ const UIRaceResult = ({ constructorData }) => {
 
   // Checks for race marked with position 1 (i.e. first place). If more than one is found, then lap time is used
   constructorRacesArray.map((constructor) => {
-    if (constructorPosition == null && constructor.Results[0].status === 'Finished') {
-      constructorPosition = parseInt(constructor.Results[0].position)
+    const results = constructor?.Results[0]
+    const currentBestPerformance = constructorBestPerformance?.Results[0]
+
+    if (constructorPosition == null && results?.status === 'Finished') {
+      constructorPosition = parseInt(results?.position)
       constructorBestPerformance = constructor
-      constructorLapTime = constructorBestPerformance.Results[0].FastestLap.Time.time
-    } else if (
-      constructorPosition > parseInt(constructor.Results[0].position) &&
-      constructor.Results[0].status === 'Finished'
-    ) {
-      constructorPosition = parseInt(constructor.Results[0].position)
+      constructorLapTime = currentBestPerformance?.FastestLap?.Time?.time ?? 'N/A'
+    } else if (constructorPosition > parseInt(results?.position) && constructor.Results[0].status === 'Finished') {
+      constructorPosition = parseInt(results?.position)
       constructorBestPerformance = constructor
-      constructorLapTime = constructorBestPerformance.Results[0].FastestLap.Time.time
-    } else if (
-      constructorPosition === parseInt(constructor.Results[0].position) &&
-      constructor.Results[0].status === 'Finished'
-    ) {
+      constructorLapTime = currentBestPerformance?.FastestLap?.Time?.time ?? 'N/A'
+    } else if (constructorPosition === parseInt(results?.position) && results?.status === 'Finished') {
       if (
-        convertLapTimeToSeconds(constructor.Results[0].FastestLap.Time.time) >
-        convertLapTimeToSeconds(constructorBestPerformance.Results[0].FastestLap.Time.time)
+        convertLapTimeToSeconds(results?.FastestLap?.Time?.time) >
+        convertLapTimeToSeconds(currentBestPerformance?.FastestLap?.Time?.time)
       ) {
         constructorBestPerformance = constructor
-        constructorLapTime = constructorBestPerformance.Results[0].FastestLap.Time.time
+        constructorLapTime = currentBestPerformance?.FastestLap?.Time?.time ?? 'N/A'
       }
     }
   })
 
-  const carConstructor = constructorBestPerformance.Results[0].Constructor.name
-  const constructorCircuit = constructorBestPerformance.Circuit.circuitName
-  const season = constructorBestPerformance.season
+  const carConstructor = constructorBestPerformance?.Results[0]?.Constructor.name
+  const constructorCircuit = constructorBestPerformance?.Circuit?.circuitName
+  const season = constructorBestPerformance?.season
 
   switch (constructorPosition) {
     case 1:

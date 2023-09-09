@@ -43,7 +43,7 @@ const Homepage = () => {
     if (!data) return
 
     const fetchData = async () => {
-      setConstructorList(data.MRData.ConstructorTable.Constructors)
+      setConstructorList(data?.MRData?.ConstructorTable?.Constructors)
     }
 
     fetchData()

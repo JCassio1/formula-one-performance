@@ -68,6 +68,6 @@ While this approach does have the limitation of not allowing users to view data 
 
 ## 🧪 Testing
 
-It would ensure reliability, identify and prevent issues, and maintain code quality. While we have not conducted testing within this specific instance, in normal circumstances it would be incorporated into the development workflow.
+Testing is crucial for maintaining code quality, preventing issues, and ensuring the reliability of your application. In this context, the testing approach specifically verifies that the application consistently fetches data, with a focus on retrieving the Formula One 2023 constructor list.
 
 Made with ❤️ by Joselson

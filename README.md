@@ -29,6 +29,8 @@ For each of the constructors in the 2023 F1 season, which circuit throughout his
 <img src="https://blog.openreplay.com/images/fetching-and-updating-data-with-react-query/images/hero.png" width="5%" height="5%"> React Query
 <img src="https://i.pinimg.com/originals/33/61/e7/3361e7c35a120457ebe533140a62f820.jpg" width="5%" height="5%"> react-content-loader
 </div>
+<img src="https://seeklogo.com/images/V/vitest-logo-9ADDA575A5-seeklogo.com.png" width="5%" height="5%"> Vitest
+</div>
 
 ## ✋🏻 Pre-requisites
 

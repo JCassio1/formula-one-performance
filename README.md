@@ -72,4 +72,8 @@ While this approach does have the limitation of not allowing users to view data 
 
 Testing is crucial for maintaining code quality, preventing issues, and ensuring the reliability of your application. In this context, the testing approach specifically verifies that the application consistently fetches data, with a focus on retrieving the Formula One 2023 constructor list.
 
+## 📹 Video
+
+Click here to view my youtube explanation: https://youtu.be/42LFQJppjsg?si=0ebf-und2tJtdkdE
+
 Made with ❤️ by Joselson
